@@ -1,0 +1,44 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.41'
+    id 'com.gradle.plugin-publish' version '0.10.0'
+    id 'maven-publish'
+}
+
+group 'com.yamilmedina'
+version '0.0.1'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    google()
+    maven {url = "https://www.jitpack.io"}
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "com.konghq:unirest-java:3.4.00"
+
+    testCompile "junit:junit:4.12"
+}
+
+sourceCompatibility = 1.8
+
+compileKotlin {
+    kotlinOptions.jvmTarget = sourceCompatibility
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = sourceCompatibility
+}
+
+gradlePlugin {
+    plugins {
+        register("gallery-publisher") {
+            id = "gallery-publisher"
+            displayName = "Publish the APK to the Huawei's App Gallery"
+            description = "A Gradle plugin that allows the publication of an APK to Huawei's App Gallery"
+            implementationClass = "com.yamilmedina.gallerypublish.AppGalleryPublisherPlugin"
+        }
+    }
+}
