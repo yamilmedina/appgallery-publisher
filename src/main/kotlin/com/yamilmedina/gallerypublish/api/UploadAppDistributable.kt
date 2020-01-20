@@ -1,6 +1,5 @@
 package com.yamilmedina.gallerypublish.api
 
-import com.google.gson.annotations.SerializedName
 import kong.unirest.MultipartMode
 import kong.unirest.Unirest
 import org.slf4j.LoggerFactory
@@ -14,12 +13,11 @@ internal class UploadAppDistributable(
 
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    fun uploadApp(token: String): Boolean {
+    fun uploadApp(token: String): UploadApkResponse {
         val apk = File(artifactPath)
         val (uploadUrl, authCode) = getUploadUlr(token)
-        val uploadApkResponse = uploadFile(uploadUrl, authCode, apk)
 
-        return uploadApkResponse.result.uploadFileRsp?.ifSuccess == 1
+        return uploadFile(uploadUrl, authCode, apk)
     }
 
     private fun getUploadUlr(token: String): UrlAppResponse {
@@ -45,6 +43,7 @@ internal class UploadAppDistributable(
                 .field("fileCount", "1")
                 .field("authCode", authCode)
                 .field("file", apk.inputStream(), apk.name)
+                .field("name", apk.name)
                 .uploadMonitor { _, fileName, bytesWritten, totalBytes ->
                     logger.info("Uploading $fileName - $bytesWritten of $totalBytes")
                 }
@@ -56,24 +55,6 @@ internal class UploadAppDistributable(
             return UploadApkResponse(Result(null, 1))
         }
     }
-
-
-    data class UploadApkResponse(@SerializedName("result") val result: Result)
-
-    data class Result(
-        @SerializedName("UploadFileRsp") val uploadFileRsp: UploadFileRsp?,
-        @SerializedName("resultCode") val resultCode: Int
-    )
-
-    data class FileInfoList(
-        @SerializedName("fileDestUlr") val fileDestUlr: String,
-        @SerializedName("size") val size: Int
-    )
-
-    data class UploadFileRsp(
-        @SerializedName("fileInfoList") val fileInfoList: List<FileInfoList>,
-        @SerializedName("ifSuccess") val ifSuccess: Int
-    )
 
     data class UrlAppResponse(val uploadUrl: String, val authCode: String, val chunkUploadUrl: String)
 
