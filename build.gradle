@@ -35,6 +35,12 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = sourceCompatibility
 }
 
+pluginBundle {
+    website = 'https://github.com/yamilmedina/appgallery-publisher'
+    vcsUrl = 'https://github.com/yamilmedina/appgallery-publisher'
+    tags = ['publish', 'android', 'huawei', 'plugins']
+}
+
 gradlePlugin {
     plugins {
         register("gallery-publisher") {
