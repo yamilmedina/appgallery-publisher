@@ -18,6 +18,9 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "com.konghq:unirest-java:3.4.00"
+    compileOnly("com.android.tools.build:gradle:3.2.0") {
+        exclude (group: "org.jetbrains.kotlin")
+    }
 
     testCompile "junit:junit:4.12"
 }

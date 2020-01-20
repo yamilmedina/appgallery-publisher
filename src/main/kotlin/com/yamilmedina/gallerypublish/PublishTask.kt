@@ -7,14 +7,13 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import org.slf4j.LoggerFactory
-import java.io.File
 
 internal open class PublishTask : DefaultTask() {
 
     private val logger by lazy { LoggerFactory.getLogger(this.javaClass.name) }
     private val tokenApi by lazy { GetToken(clientId, clientSecret) }
     private val appInfoApi by lazy { GetAppInfo(appId, clientId) }
-    private val uploadAppApi by lazy { UploadAppDistributable(appId, clientId, File(apkFile)) }
+    private val uploadAppApi by lazy { UploadAppDistributable(appId, clientId, artifactPath) }
 
     @get:Input
     lateinit var appId: String
@@ -23,7 +22,7 @@ internal open class PublishTask : DefaultTask() {
     @get:Input
     lateinit var clientSecret: String
     @get:Input
-    lateinit var apkFile: String
+    lateinit var artifactPath: String
 
     @TaskAction
     fun execute() {
