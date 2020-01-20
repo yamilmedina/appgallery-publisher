@@ -2,7 +2,7 @@
 
 `Gallery Publisher` is a Gradle plugin that allows the publication of an artifact in Huawei's App Gallery store. 
 
-## Usage
+## Configuration and requirements
 
 Add the repository to your buildscript block:
 ```
@@ -20,6 +20,9 @@ buildscript {
 
 Then add your configuration accordingly to your `build.gradle` file:
 ```
+apply plugin: 'com.android.application'
+apply plugin: "gallery-publisher"
+
 galleryPublisher {
     appId = "YOUR_APP_ID_FROM_CONSOLE"
     clientId = "YOUR_CLIENT_ID_FROM_CONSOLE"
@@ -28,15 +31,12 @@ galleryPublisher {
 }
 ```
 
-## Example
+## Usage
+
+When you execute `./gradlew tasks` you will see a new publishing task `appGalleryPublish<BuildVariant>` in the list. 
 
 ```
-galleryPublisher {
-    appId = "111222"
-    clientId = "32131231231"
-    clientSecret = "ABSDUABDASBDU1212ED12DU12ND112"
-    artifactPath = "$project.rootDir/app/build/outputs/apk/prod/release/app-prod-release.apk"
-}
+./gradlew appGalleryPublishProdRelease
 ```
 
 ## License
