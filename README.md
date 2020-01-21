@@ -1,6 +1,6 @@
 # Gallery Publisher Gradle Plugin
 
-`Gallery Publisher` is a Gradle plugin that allows the publication of an artifact in Huawei's App Gallery store. 
+`Gallery Publisher` is a Gradle plugin that allows the publication of an artifact to Huawei's App Gallery store. 
 
 ## Configuration and requirements
 

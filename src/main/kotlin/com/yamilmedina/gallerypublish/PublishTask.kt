@@ -41,7 +41,7 @@ internal open class PublishTask : DefaultTask() {
         )
 
         if (!uploadedStatus) {
-            throw GradleException("The APK could not be saved into HMS console.")
+            throw GradleException("The APK could not be saved into HMS console, please run the task again with --debug to get more insights.")
         }
     }
 
