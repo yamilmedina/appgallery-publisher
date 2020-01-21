@@ -30,7 +30,7 @@ internal class AppGalleryPublisherPlugin : Plugin<Project> {
 
     companion object {
         private const val TASK_GROUP = "Publishing"
-        private const val PLUGIN_ID = "gallery-publisher"
+        private const val PLUGIN_ID = "com.yamilmedina.gallery-publisher"
         private const val EXTENSION_NAME = "galleryPublisher"
         private const val MINIMAL_ANDROID_PLUGIN_VERSION = "3.0.1"
 

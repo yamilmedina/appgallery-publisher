@@ -43,10 +43,10 @@ pluginBundle {
 
 gradlePlugin {
     plugins {
-        register("gallery-publisher") {
-            id = "gallery-publisher"
-            displayName = "Publish the APK to the Huawei's App Gallery"
-            description = "A Gradle plugin that allows the publication of an APK to Huawei's App Gallery"
+        register("com.yamilmedina.gallery-publisher") {
+            id = "com.yamilmedina.gallery-publisher"
+            displayName = "Publish the APK to Huawei's App Gallery"
+            description = "A Gradle plugin that allows the publication of an APK to Huawei's App Gallery store"
             implementationClass = "com.yamilmedina.gallerypublish.AppGalleryPublisherPlugin"
         }
     }

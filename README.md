@@ -21,7 +21,7 @@ buildscript {
 Then add your configuration accordingly to your `build.gradle` file:
 ```
 apply plugin: 'com.android.application'
-apply plugin: "gallery-publisher"
+apply plugin: "com.yamilmedina.gallery-publisher"
 
 galleryPublisher {
     appId = "YOUR_APP_ID_FROM_CONSOLE"
