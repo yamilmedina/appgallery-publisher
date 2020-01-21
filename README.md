@@ -1,10 +1,19 @@
 # Gallery Publisher Gradle Plugin
+[![CircleCI](https://circleci.com/gh/yamilmedina/appgallery-publisher.svg?style=shield)](https://circleci.com/gh/yamilmedina/appgallery-publisher)
 
-`Gallery Publisher` is a Gradle plugin that allows the publication of an artifact to Huawei's App Gallery store. 
+`Gallery Publisher` is a Gradle plugin that allows the publication of an artifact to Huawei's App Gallery store, inspired by [AutoPlay][3] plugin.
+
+## Assumptions and features
+
+* The plugin assumes that you previously assemble your APK.
+* You also have the `com.android.application >= 3.0.1` plugin applied to your project.
+* There is room for improvement like auto-collect artifacts or assemble APK when not present, will be covered soon.
 
 ## Configuration and requirements
 
-Add the repository to your buildscript block:
+1. Create an API Client: Please refer to Huawei's [HMS Core API Documentation][1] 'Creating an API Client' section.
+
+2. Add the repository to your buildscript block:
 ```
 buildscript {
   repositories {
@@ -18,7 +27,7 @@ buildscript {
 }
 ```
 
-Then add your configuration accordingly to your `build.gradle` file:
+3. Then, add your configuration accordingly in your app module `build.gradle` file:
 ```
 apply plugin: 'com.android.application'
 apply plugin: "com.yamilmedina.gallery-publisher"
@@ -41,6 +50,8 @@ When you execute `./gradlew tasks` you will see a new publishing task `appGaller
 
 ## License
 
-Free use of Gallery Publisher Gradle is permitted under the guidelines and in accordance with the [Apache License 2.0][1] 
+Free use of Gallery Publisher Gradle is permitted under the guidelines and in accordance with the [Apache License 2.0][2] 
 
-[1]: https://opensource.org/licenses/Apache-2.0
+[1]: https://developer.huawei.com/consumer/en/service/hms/catalog/AGCConnectAPI.html?page=hmssdk_appGalleryConnect_getstarted#Creating%20an%20API%20Client
+[2]: https://opensource.org/licenses/Apache-2.0
+[3]: https://github.com/beworker/autoplay
