@@ -41,6 +41,6 @@ When you execute `./gradlew tasks` you will see a new publishing task `appGaller
 
 ## License
 
-Free use of Gallery Publisher Gradle is permitted under the guidelines and in accordance with the [GNU General Public License v3.0][1] 
+Free use of Gallery Publisher Gradle is permitted under the guidelines and in accordance with the [Apache License 2.0][1] 
 
-[1]: https://opensource.org/licenses/GPL-3.0
+[1]: https://opensource.org/licenses/Apache-2.0
