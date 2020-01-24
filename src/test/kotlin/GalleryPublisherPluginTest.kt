@@ -54,7 +54,5 @@ class GalleryPublisherPluginTest {
         extension.clientId = "0987654321"
         extension.clientSecret = "MF29J23D2K23FAD023D2DK23DL222221"
         extension.artifactPath = "/tmp/app.apk"
-
-
     }
 }
