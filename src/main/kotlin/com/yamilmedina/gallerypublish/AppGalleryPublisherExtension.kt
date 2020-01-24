@@ -2,9 +2,9 @@ package com.yamilmedina.gallerypublish
 
 abstract class AppGalleryPublisherExtension {
 
-    abstract var appId: String
-    abstract var clientId: String
-    abstract var clientSecret: String
-    abstract var artifactPath: String
+    var appId: String? = null
+    var clientId: String? = null
+    var clientSecret: String? = null
+    var artifactPath: String? = null
 
 }

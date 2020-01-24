@@ -5,7 +5,9 @@ import org.gradle.api.Project
 import org.gradle.api.internal.plugins.PluginApplicationException
 import org.gradle.api.internal.project.DefaultProject
 import org.gradle.testfixtures.ProjectBuilder
+import org.hamcrest.CoreMatchers.`is`
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import java.io.File
@@ -27,11 +29,28 @@ class GalleryPublisherPluginTest {
     }
 
     @Test
-    fun pluginIsAddedSuccessfullyToProject() {
+    fun pluginDetectsParamsNotDefined() {
+        try {
+            project.plugins.apply("com.android.application")
+            prepareAndroidLibraryProject(project)
+            project.plugins.apply(AppGalleryPublisherPlugin::class.java)
+            prepareAppGalleryPublishPlugin(project, null, "123412341241", "WAGEBUFS13BFAJS1", "/tmp/app.apk")
+
+            (project as DefaultProject).evaluate()
+
+            project.getTasksByName("appGalleryPublishRelease", false)
+            project.extensions.getByType(AppGalleryPublisherExtension::class.java)
+        } catch (ex: Exception) {
+            assertThat(ex.cause?.message, `is`("Param appId is required"))
+        }
+    }
+
+    @Test
+    fun pluginTaskIsAddedSuccessfullyToProject() {
         project.plugins.apply("com.android.application")
         prepareAndroidLibraryProject(project)
         project.plugins.apply(AppGalleryPublisherPlugin::class.java)
-        prepareAppGalleryPublishPlugin(project)
+        prepareAppGalleryPublishPlugin(project, "123456", "123412341241", "WAGEBUFS13BFAJS1", "/tmp/app.apk")
 
         (project as DefaultProject).evaluate()
 
@@ -48,11 +67,17 @@ class GalleryPublisherPluginTest {
         manifestFile.writeText("""<manifest package="com.foo.bar"/>""")
     }
 
-    private fun prepareAppGalleryPublishPlugin(project: Project) {
+    private fun prepareAppGalleryPublishPlugin(
+        project: Project,
+        appId: String?,
+        clientId: String?,
+        clientSecret: String?,
+        artifactPath: String?
+    ) {
         val extension = project.extensions.getByType(AppGalleryPublisherExtension::class.java)
-        extension.appId = "123456"
-        extension.clientId = "0987654321"
-        extension.clientSecret = "MF29J23D2K23FAD023D2DK23DL222221"
-        extension.artifactPath = "/tmp/app.apk"
+        extension.appId = appId
+        extension.clientId = clientId
+        extension.clientSecret = clientSecret
+        extension.artifactPath = artifactPath
     }
 }

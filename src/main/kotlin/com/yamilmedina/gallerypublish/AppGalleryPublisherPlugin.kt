@@ -7,7 +7,8 @@ import org.gradle.api.Project
 
 internal class AppGalleryPublisherPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        val extension = project.extensions.create(EXTENSION_NAME, AppGalleryPublisherExtension::class.java)
+        val galleryPublisherExtension =
+            project.extensions.create(EXTENSION_NAME, AppGalleryPublisherExtension::class.java)
 
         val androidAppExtension = project.requireAndroidAppExtension()
         androidAppExtension.applicationVariants.whenObjectAdded {
@@ -20,10 +21,12 @@ internal class AppGalleryPublisherPlugin : Plugin<Project> {
                 task.group = TASK_GROUP
                 task.description = "Publish $variantName APK to Huawei's App Gallery."
 
-                task.appId = extension.appId
-                task.clientId = extension.clientId
-                task.clientSecret = extension.clientSecret
-                task.artifactPath = extension.artifactPath
+                galleryPublisherExtension.validateParameters()
+
+                task.appId = galleryPublisherExtension.appId!!
+                task.clientId = galleryPublisherExtension.clientId!!
+                task.clientSecret = galleryPublisherExtension.clientSecret!!
+                task.artifactPath = galleryPublisherExtension.artifactPath!!
             }
         }
     }
@@ -45,6 +48,21 @@ internal class AppGalleryPublisherPlugin : Plugin<Project> {
             }
             return project.extensions.findByType(AppExtension::class.java)
                 ?: error("Required 'com.android.application' plugin must be added prior '$PLUGIN_ID' plugin.")
+        }
+
+        private fun AppGalleryPublisherExtension.validateParameters() {
+            if (this.appId == null) {
+                throw IllegalArgumentException("Param appId is required")
+            }
+            if (this.clientId == null) {
+                throw IllegalArgumentException("Param clientId is required")
+            }
+            if (this.clientSecret == null) {
+                throw IllegalArgumentException("Param clientSecret is required")
+            }
+            if (this.artifactPath == null) {
+                throw IllegalArgumentException("Param artifactPath is required")
+            }
         }
     }
 }
