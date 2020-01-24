@@ -1,11 +1,11 @@
 import com.android.build.gradle.AppExtension
 import com.yamilmedina.gallerypublish.AppGalleryPublisherExtension
 import com.yamilmedina.gallerypublish.AppGalleryPublisherPlugin
-import junit.framework.Assert.assertNotNull
 import org.gradle.api.Project
 import org.gradle.api.internal.plugins.PluginApplicationException
 import org.gradle.api.internal.project.DefaultProject
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import java.io.File
@@ -54,5 +54,7 @@ class GalleryPublisherPluginTest {
         extension.clientId = "0987654321"
         extension.clientSecret = "MF29J23D2K23FAD023D2DK23DL222221"
         extension.artifactPath = "/tmp/app.apk"
+
+
     }
 }
