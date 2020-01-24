@@ -37,7 +37,5 @@ jobs:
       - run: make test
 
       - store_test_results:
-          path: ~/build/reports/tests/test/index.html
+          path: ~/repo/build/reports/tests/test/index.html
 
-      - store_artifacts:
-          path: ~/test-results/junit
