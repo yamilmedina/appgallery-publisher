@@ -8,7 +8,7 @@ publishLocal:
 	./gradlew publishToMavenLocal
 
 test:
-	./gradlew test
+	./gradlew test --verbose
 
 dependencies:
 	./gradlew dependencies
