@@ -41,7 +41,7 @@ class GalleryPublisherPluginTest {
 
     private fun prepareAndroidLibraryProject(project: Project) {
         val extension = project.extensions.getByType(AppExtension::class.java)
-        extension.compileSdkVersion(27)
+        extension.compileSdkVersion(25)
 
         val manifestFile = File(project.projectDir, "src/main/AndroidManifest.xml")
         manifestFile.parentFile.mkdirs()
