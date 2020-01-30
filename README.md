@@ -7,7 +7,6 @@
 
 * The plugin assumes that you previously assemble your APK.
 * You also have the `com.android.application >= 3.0.1` plugin applied to your project.
-* There is room for improvement like auto-collect artifacts or assemble APK when not present, will be covered soon.
 
 ## Configuration and requirements
 
@@ -30,7 +29,7 @@ buildscript {
 3. Then, add your configuration accordingly in your app module `build.gradle` file:
 ```
 apply plugin: 'com.android.application'
-apply plugin: "com.yamilmedina.gallery-publisher"
+apply plugin: 'com.yamilmedina.gallery-publisher'
 
 galleryPublisher {
     appId = "YOUR_APP_ID_FROM_CONSOLE"

@@ -1,6 +1,6 @@
+package com.yamilmedina.gallerypublish
+
 import com.android.build.gradle.AppExtension
-import com.yamilmedina.gallerypublish.AppGalleryPublisherExtension
-import com.yamilmedina.gallerypublish.AppGalleryPublisherPlugin
 import org.gradle.api.Project
 import org.gradle.api.internal.plugins.PluginApplicationException
 import org.gradle.api.internal.project.DefaultProject
@@ -14,7 +14,7 @@ import java.io.File
 
 class GalleryPublisherPluginTest {
 
-    lateinit var project: Project
+    private lateinit var project: Project
 
     @Before
     fun init() {
@@ -24,17 +24,17 @@ class GalleryPublisherPluginTest {
     }
 
     @Test(expected = PluginApplicationException::class)
-    fun pluginDetectsAndroidPluginNotApplied() {
+    fun `Plugin application fails when android plugin not present`() {
         project.pluginManager.apply(AppGalleryPublisherPlugin::class.java)
     }
 
     @Test
-    fun pluginDetectsParamsNotDefined() {
+    fun `Plugin application fails when parameters not defined`() {
         try {
             project.plugins.apply("com.android.application")
             prepareAndroidLibraryProject(project)
             project.plugins.apply(AppGalleryPublisherPlugin::class.java)
-            prepareAppGalleryPublishPlugin(project, null, "123412341241", "WAGEBUFS13BFAJS1", "/tmp/app.apk")
+            prepareAppGalleryPublishPlugin(project, null, "ANY_ID", "ANY_SECRET", "/tmp/app.apk")
 
             (project as DefaultProject).evaluate()
 
@@ -46,11 +46,11 @@ class GalleryPublisherPluginTest {
     }
 
     @Test
-    fun pluginTaskIsAddedSuccessfullyToProject() {
+    fun `PublishTask is added successfully to project when configured properly`() {
         project.plugins.apply("com.android.application")
         prepareAndroidLibraryProject(project)
         project.plugins.apply(AppGalleryPublisherPlugin::class.java)
-        prepareAppGalleryPublishPlugin(project, "123456", "123412341241", "WAGEBUFS13BFAJS1", "/tmp/app.apk")
+        prepareAppGalleryPublishPlugin(project, "123456", "ANY_ID", "ANY_SECRET", "/tmp/app.apk")
 
         (project as DefaultProject).evaluate()
 
@@ -64,7 +64,7 @@ class GalleryPublisherPluginTest {
 
         val manifestFile = File(project.projectDir, "src/main/AndroidManifest.xml")
         manifestFile.parentFile.mkdirs()
-        manifestFile.writeText("""<manifest package="com.foo.bar"/>""")
+        manifestFile.writeText("""<manifest package="com.example.sample-app"/>""")
     }
 
     private fun prepareAppGalleryPublishPlugin(

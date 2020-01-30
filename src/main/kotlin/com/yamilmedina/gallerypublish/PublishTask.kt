@@ -3,18 +3,19 @@ package com.yamilmedina.gallerypublish
 import com.yamilmedina.gallerypublish.api.GetToken
 import com.yamilmedina.gallerypublish.api.UploadAppDistributable
 import com.yamilmedina.gallerypublish.api.UploadAppFileInfo
+import com.yamilmedina.gallerypublish.config.UnirestClient
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-import org.slf4j.LoggerFactory
 
 internal open class PublishTask : DefaultTask() {
 
-    private val logger by lazy { LoggerFactory.getLogger(this.javaClass.name) }
-    private val tokenApi by lazy { GetToken(clientId, clientSecret) }
-    private val uploadAppApi by lazy { UploadAppDistributable(appId, clientId, artifactPath) }
-    private val uploadAppFileInfo by lazy { UploadAppFileInfo(appId, clientId) }
+    private val unirestClient = UnirestClient
+
+    private val tokenApi by lazy { GetToken(unirestClient, clientId, clientSecret) }
+    private val uploadAppApi by lazy { UploadAppDistributable(unirestClient, appId, clientId, artifactPath) }
+    private val uploadAppFileInfo by lazy { UploadAppFileInfo(unirestClient, appId, clientId) }
 
     @get:Input
     lateinit var appId: String
@@ -31,8 +32,7 @@ internal open class PublishTask : DefaultTask() {
         val uploadApkResponse = uploadAppApi.uploadApp(token)
 
         if (uploadApkResponse.result.uploadFileRsp?.ifSuccess != 1) {
-            logger.error("Could not upload the APK, please run the task again with --debug to get more insights.")
-            return
+            throw GradleException("Could not upload the APK, please run the task again with --debug to get more insights.")
         }
 
         val uploadedStatus = uploadAppFileInfo.updateAppFileInfo(

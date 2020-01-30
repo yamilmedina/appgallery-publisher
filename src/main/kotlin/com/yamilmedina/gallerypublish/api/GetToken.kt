@@ -1,14 +1,15 @@
 package com.yamilmedina.gallerypublish.api
 
-import kong.unirest.Unirest
+import com.yamilmedina.gallerypublish.config.UnirestClient
 
 internal class GetToken(
+    private val unirestClient: UnirestClient,
     private val clientId: String,
     private val clientSecret: String
 ) {
 
     fun getToken(): String {
-        val response = Unirest.post("https://connect-api.cloud.huawei.com/api/oauth2/v1/token")
+        val response = unirestClient.post("https://connect-api.cloud.huawei.com/api/oauth2/v1/token")
             .header("Content-Type", "application/json")
             .header("cache-control", "no-cache")
             .body(TokenRequest(clientId, clientSecret, GRANT_TYPE))

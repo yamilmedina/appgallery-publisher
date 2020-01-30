@@ -1,11 +1,12 @@
 package com.yamilmedina.gallerypublish.api
 
+import com.yamilmedina.gallerypublish.config.UnirestClient
 import kong.unirest.MultipartMode
-import kong.unirest.Unirest
 import org.slf4j.LoggerFactory
 import java.io.File
 
 internal class UploadAppDistributable(
+    private val unirestClient:UnirestClient,
     private val appId: String,
     private val clientId: String,
     private val artifactPath: String
@@ -22,7 +23,7 @@ internal class UploadAppDistributable(
 
     private fun getUploadUlr(token: String): UrlAppResponse {
         val response =
-            Unirest.get("https://connect-api.cloud.huawei.com/api/publish/v2/upload-url")
+            unirestClient.get("https://connect-api.cloud.huawei.com/api/publish/v2/upload-url")
                 .header("client_id", clientId)
                 .header(
                     "Authorization",
@@ -37,7 +38,7 @@ internal class UploadAppDistributable(
 
     private fun uploadFile(uploadUrl: String, authCode: String, apk: File): UploadApkResponse {
         try {
-            val response = Unirest.post(uploadUrl)
+            val response = unirestClient.post(uploadUrl)
                 .multiPartContent()
                 .mode(MultipartMode.BROWSER_COMPATIBLE)
                 .field("fileCount", "1")

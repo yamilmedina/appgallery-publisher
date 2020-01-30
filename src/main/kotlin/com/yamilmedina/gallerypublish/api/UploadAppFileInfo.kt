@@ -1,10 +1,11 @@
 package com.yamilmedina.gallerypublish.api
 
 import com.google.gson.annotations.SerializedName
-import kong.unirest.Unirest
+import com.yamilmedina.gallerypublish.config.UnirestClient
 import org.slf4j.LoggerFactory
 
 internal class UploadAppFileInfo(
+    private val unirestClient: UnirestClient,
     private val appId: String,
     private val clientId: String
 ) {
@@ -12,7 +13,7 @@ internal class UploadAppFileInfo(
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     fun updateAppFileInfo(token: String, files: List<FileInfoList>): Boolean {
-        val response = Unirest.put("https://connect-api.cloud.huawei.com/api/publish/v2/app-file-info")
+        val response = unirestClient.put("https://connect-api.cloud.huawei.com/api/publish/v2/app-file-info")
             .header("client_id", clientId)
             .header(
                 "Authorization",
