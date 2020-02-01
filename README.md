@@ -1,6 +1,8 @@
 # Gallery Publisher Gradle Plugin
 [![CircleCI](https://circleci.com/gh/yamilmedina/appgallery-publisher.svg?style=shield&circle-token=4fac8f5649a93768e700226e7943e9eaa9995ff2)](https://circleci.com/gh/yamilmedina/appgallery-publisher)
 
+<img src="https://lh6.googleusercontent.com/e838hmrsQQbQq0xDc-2_ZwDdjq22SJP0fptg-5612QZxIhDKMW_cKFnbmzEUXh6g6PiPba-JtSWOF1V945r3=w3360-h1862" width=180 />
+
 `Gallery Publisher` is a Gradle plugin that allows the publication of an artifact to Huawei's App Gallery store, inspired by [AutoPlay][3] plugin.
 
 ## Assumptions and features
